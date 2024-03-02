@@ -64,6 +64,7 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+    options = "ctrl:nocaps";
   };
 
   # Enable CUPS to print documents.
@@ -101,11 +102,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
     git
 
     # LazyVim requirements
     neovim
+    lazygit
+    ripgrep
+    fd
+    tree-sitter
+    gcc
+    gnumake
+    prettierd
+    stylua
+    xclip
+    nodejs_21
+    wget
+    unzip
 
     # Apps
     brave

@@ -6,10 +6,17 @@
   home.username = "${user}";
   home.homeDirectory = "/home/${user}";
 
+  # Dotfiles
   programs.git = {
     enable = true;
-    userName = "Sapo-Dorado";
+    userName = "Nicholas Brown";
     userEmail = "nobrown@sbcglobal.net";
+  };
+
+  home.file.".wezterm.lua".source = ../../dotfiles/.wezterm.lua;
+  home.file.".config/nvim" = {
+    source = ../../dotfiles/lazyvim;
+    recursive = true;
   };
 
 
