@@ -1,10 +1,15 @@
-{ pkgs, user, ... }:
+{ pkgs, ... }@inputs:
 
+let
+  # Default values are for Mac
+  user = ({user ? "nicholas", ...}: user) inputs;
+  homeDirectory = ({ homeDirectory ? "/Users/nicholas", ...}: homeDirectory) inputs;
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "${user}";
-  home.homeDirectory = "/home/${user}";
+  home.homeDirectory = homeDirectory;
 
   # Dotfiles
   programs.git = {
@@ -13,9 +18,9 @@
     userEmail = "nobrown@sbcglobal.net";
   };
 
-  home.file.".wezterm.lua".source = ../../dotfiles/.wezterm.lua;
+  home.file.".wezterm.lua".source = ./dotfiles/.wezterm.lua;
   home.file.".config/nvim" = {
-    source = ../../dotfiles/lazyvim;
+    source = ./dotfiles/lazyvim;
     recursive = true;
   };
 
