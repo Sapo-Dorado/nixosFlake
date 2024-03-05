@@ -2,8 +2,8 @@
 
 let
   # Default values are for Mac
-  user = ({user ? "nicholas", ...}: user) inputs;
-  homeDirectory = ({ homeDirectory ? "/Users/nicholas", ...}: homeDirectory) inputs;
+  user = ({ user ? "nicholas", ... }: user) inputs;
+  homeDirectory = ({ homeDirectory ? "/Users/nicholas", ... }: homeDirectory) inputs;
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
