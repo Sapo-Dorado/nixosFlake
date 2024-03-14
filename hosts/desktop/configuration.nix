@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -18,7 +19,7 @@
     };
     grub = {
       enable = true;
-      devices = ["nodev"];
+      devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
       configurationLimit = 5;
@@ -128,6 +129,8 @@
     nodejs_21
     wget
     unzip
+    erlangR26
+    beam.packages.erlangR26.elixir_1_16
 
     # Apps
     brave
