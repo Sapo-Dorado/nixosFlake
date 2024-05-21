@@ -2,11 +2,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    opts = {
-      on_colors = function(colors)
-        colors.gitSigns.change = "#e0af68"
-      end,
-    },
+    opts = {},
   },
   {
     "LazyVim/LazyVim",
