@@ -1,7 +1,4 @@
-{ pkgs, lib, system, home-manager, user, ...}:
-let
-  homeDirectory = "/home/${user}";
-in
+{ pkgs, lib, system, home-manager, user, homeDirectory, neovim, ... }:
 {
   nixos = lib.nixosSystem {
     inherit system;
@@ -9,13 +6,16 @@ in
       (import ./desktop/configuration.nix {
         inherit pkgs user;
       })
-      home-manager.nixosModules.home-manager {
+      home-manager.nixosModules.home-manager
+      {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users.${user} = {
-          imports = [ (import ../home.nix {
-            inherit pkgs user homeDirectory;
-          }) ];
+          imports = [
+            (import ../home.nix {
+              inherit pkgs user homeDirectory neovim;
+            })
+          ];
         };
       }
     ];
