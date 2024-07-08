@@ -9,7 +9,7 @@
     neovim.url = "github:Sapo-Dorado/nixvim-config";
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim }:
+  outputs = { nixpkgs, home-manager, neovim, ... }:
     let
       user = "nicholas";
       homeDirectory = "/home/${user}";
@@ -18,14 +18,11 @@
         inherit system;
         config.allowUnfree = true;
       };
-    in
-    {
-      nixosConfigurations = (
-        import ./hosts {
-          inherit (nixpkgs) lib;
-          inherit pkgs user homeDirectory system home-manager neovim;
-        }
-      );
+    in {
+      nixosConfigurations = import ./hosts {
+        inherit (nixpkgs) lib;
+        inherit pkgs user homeDirectory system home-manager neovim;
+      };
 
       # For Mac
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
@@ -34,7 +31,10 @@
           config.allowUnfree = true;
         };
 
-        extraSpecialArgs = { inherit neovim user; homeDirectory = "/Users/${user}"; };
+        extraSpecialArgs = {
+          inherit neovim user;
+          homeDirectory = "/Users/${user}";
+        };
         modules = [ ./home.nix ];
       };
     };

@@ -5,11 +5,10 @@
 { pkgs, user, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader = {
@@ -55,21 +54,25 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services = {
+    xserver = {
+      enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+      # Enable the KDE Plasma Desktop Environment.
+      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-    options = "ctrl:nocaps";
+      # Configure keymap in X11
+      xkb = {
+        layout = "us";
+        variant = "";
+        options = "ctrl:nocaps";
+      };
+    };
+    printing.enable = true;
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -114,23 +117,6 @@
   environment.systemPackages = with pkgs; [
     git
     cargo
-
-    # LazyVim requirements
-    neovim
-    lazygit
-    ripgrep
-    fd
-    tree-sitter
-    gcc
-    gnumake
-    prettierd
-    stylua
-    xclip
-    nodejs_21
-    wget
-    unzip
-    erlangR26
-    beam.packages.erlangR26.elixir_1_16
 
     # Apps
     brave
