@@ -10,7 +10,8 @@
           useUserPackages = true;
           users.${user} = {
             imports = [
-              (import ../home.nix { inherit pkgs user homeDirectory neovim; })
+              ../home
+              { _module.args = { inherit user homeDirectory neovim; }; }
             ];
           };
         };
