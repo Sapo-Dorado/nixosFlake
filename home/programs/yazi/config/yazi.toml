@@ -1,0 +1,10 @@
+
+[open]
+prepend_rules = [
+	{ name = "*/", use = ["nvim", "open"] },
+]
+
+[opener]
+nvim = [
+	{ desc = "nvim", run = 'cd "$@" && nvim .', block = true },
+]

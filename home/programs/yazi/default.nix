@@ -1,10 +1,7 @@
 { pkgs, lib, ... }@inputs: {
-  home.packages = with pkgs; [ ffmpegthumbnailer unar jq poppler ];
-
-  programs.yazi = {
-    enable = true;
-    enableBashIntegration = true;
-    settings = { theme = lib.importTOML ./themes/mocha.toml; };
+  home = {
+    packages = with pkgs; [ yazi ffmpegthumbnailer unar jq poppler ];
+    file = { ".config/yazi/yazi.toml".source = ./config/yazi.toml; };
   };
 
 }

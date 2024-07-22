@@ -18,8 +18,10 @@ end
 
 config.font_size = 16.0
 
+local nix_profile = "/Users/nicholas/.nix-profile/bin"
+
 -- Settings
-config.default_prog = { "/Users/nicholas/.nix-profile/bin/bash", "-l" }
+config.default_prog = { nix_profile .. "/bash", "-l" }
 
 config.color_scheme = "Tokyo Night"
 -- config.font = wezterm.font_with_fallback({
@@ -66,6 +68,16 @@ config.keys = {
 
   -- Tab keybindings
   { key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+  {
+    key = "y",
+    mods = "LEADER",
+    action = wezterm.action.SpawnCommandInNewTab({
+      set_environment_variables = {
+        PATH = os.getenv("PATH") .. ":" .. nix_profile,
+      },
+      args = { "bash", "-l", "-c", "yazi" },
+    }),
+  },
   { key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
   { key = "]", mods = "LEADER", action = act.ActivateTabRelative(1) },
   { key = "n", mods = "LEADER", action = act.ShowTabNavigator },
