@@ -71,11 +71,11 @@ config.keys = {
   {
     key = "y",
     mods = "LEADER",
-    action = wezterm.action.SpawnCommandInNewTab({
+    action = act.SpawnCommandInNewTab({
       set_environment_variables = {
-        PATH = os.getenv("PATH") .. ":" .. nix_profile,
+        PATH = nix_profile .. ":" .. os.getenv("PATH"),
       },
-      args = { "bash", "-l", "-c", "yazi" },
+      args = { "yazi" },
     }),
   },
   { key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
