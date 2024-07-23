@@ -1,1 +1,1 @@
-{ imports = [ ./wezterm ./yazi ./common.nix ./git.nix ./neovim.nix ]; }
+{ imports = [ ./wezterm ./common.nix ./git.nix ./neovim.nix ./yazi.nix ]; }
