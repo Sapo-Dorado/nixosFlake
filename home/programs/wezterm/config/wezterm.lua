@@ -18,10 +18,32 @@ end
 
 config.font_size = 16.0
 
-local nix_profile = "/Users/nicholas/.nix-profile/bin"
+local function detect_host_os()
+  -- package.config:sub(1,1) returns '\' for windows and '/' for *nix.
+  if package.config:sub(1, 1) == "\\" then
+    return "windows"
+  else
+    -- uname should be available on *nix systems.
+    local check = io.popen("uname -s")
+    local result = check:read("*l")
+    check:close()
+    if result == "Darwin" then
+      return "macos"
+    else
+      return "linux"
+    end
+  end
+end
+
+local host_os = detect_host_os()
+if host_os == "macos" then
+  -- include home manager packages at startup
+  config.set_environment_variables = {
+    PATH = "/Users/nicholas/.nix-profile/bin/:" .. os.getenv("PATH"),
+  }
+end
 
 -- Settings
-config.default_prog = { nix_profile .. "/bash", "-l" }
 
 config.color_scheme = "Tokyo Night"
 -- config.font = wezterm.font_with_fallback({
@@ -72,10 +94,7 @@ config.keys = {
     key = "y",
     mods = "LEADER",
     action = act.SpawnCommandInNewTab({
-      set_environment_variables = {
-        PATH = nix_profile .. ":" .. os.getenv("PATH"),
-      },
-      args = { "yazi" },
+      args = { "bash", "-l", "-c", "yazi" },
     }),
   },
   { key = "[", mods = "LEADER", action = act.ActivateTabRelative(-1) },
