@@ -5,6 +5,6 @@
       enableBashIntegration = true;
       nix-direnv.enable = true;
     };
-    git.ignores = [ ".envrc" ".direnv/" ];
+    git.ignores = [ ".envrc" ".direnv" ];
   };
 }
