@@ -1,4 +1,11 @@
 {
-  imports =
-    [ ./wezterm ./common.nix ./git.nix ./neovim.nix ./yazi.nix ./zoxide.nix ];
+  imports = [
+    ./wezterm
+    ./common.nix
+    ./direnv.nix
+    ./git.nix
+    ./neovim.nix
+    ./yazi.nix
+    ./zoxide.nix
+  ];
 }
