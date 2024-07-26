@@ -20,6 +20,7 @@
       };
     in {
       nixosConfigurations = import ./hosts {
+        inherit (nixpkgs) lib;
         inherit pkgs user homeDirectory system home-manager neovim;
       };
 

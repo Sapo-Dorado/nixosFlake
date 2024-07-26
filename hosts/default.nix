@@ -1,8 +1,9 @@
-{ pkgs, lib, system, home-manager, user, homeDirectory, neovim, ... }: {
+{ lib, system, home-manager, user, homeDirectory, neovim, ... }: {
   nixos = lib.nixosSystem {
     inherit system;
     modules = [
-      (import ./desktop/configuration.nix { inherit pkgs user; })
+      ./desktop/configuration.nix
+      { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
       {
         home-manager = {
