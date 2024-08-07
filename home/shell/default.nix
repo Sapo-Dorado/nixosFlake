@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./starship.nix ];
+  imports = [ ./bat.nix ./starship.nix ];
   home.packages = with pkgs; [ bashInteractive eza dua ];
   programs.bash = {
     enable = true;
