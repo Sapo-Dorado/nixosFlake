@@ -201,11 +201,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1722989916,
-        "narHash": "sha256-a4KaPNULas4odzpjL7+z2kvuFBgWz+zo6ORvYdZILGU=",
+        "lastModified": 1723077953,
+        "narHash": "sha256-DvOOVgUBHQKPWpIZap36IOaKC65xUif23fy83wgZS6E=",
         "owner": "Sapo-Dorado",
         "repo": "nixvim-config",
-        "rev": "907e4edaad359926dfeb13abf334b4455da5d5d2",
+        "rev": "6d68cba8b6ad9e9de3748f62f8022049b0d78644",
         "type": "github"
       },
       "original": {
