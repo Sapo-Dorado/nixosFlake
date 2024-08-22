@@ -1,4 +1,5 @@
-{ lib, system, home-manager, user, homeDirectory, neovim, ... }: {
+{ lib, system, home-manager, user, homeDirectory, neovim, nixpkgs-unstable, ...
+}: {
   nixos = lib.nixosSystem {
     inherit system;
     modules = [
@@ -12,7 +13,11 @@
           users.${user} = {
             imports = [
               ../home
-              { _module.args = { inherit user homeDirectory neovim; }; }
+              {
+                _module.args = {
+                  inherit user system homeDirectory neovim nixpkgs-unstable;
+                };
+              }
             ];
           };
         };
