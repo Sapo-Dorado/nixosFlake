@@ -6,37 +6,33 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim.url = "github:Sapo-Dorado/nixvim-config";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, ... }:
+  outputs = { nixpkgs, home-manager, neovim, ... }:
     let
       user = "nicholas";
       homeDirectory = "/home/${user}";
-      system = "x86_64-linux";
       pkgs = import nixpkgs {
-        inherit system;
+        system = "x86_64-linux";
         config.allowUnfree = true;
       };
     in {
       nixosConfigurations = import ./hosts {
         inherit (nixpkgs) lib;
-        inherit pkgs user homeDirectory system home-manager neovim
-          nixpkgs-unstable;
+        inherit pkgs user homeDirectory home-manager neovim;
       };
 
       # For Mac
-      homeConfigurations.${user} = let mac-system = "aarch64-darwin";
-      in home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = mac-system;
+          system = "aarch64-darwin";
           config.allowUnfree = true;
         };
 
         extraSpecialArgs = {
-          inherit neovim user nixpkgs-unstable;
-          system = mac-system;
+          inherit neovim user;
           homeDirectory = "/Users/${user}";
         };
         modules = [ ./home ];

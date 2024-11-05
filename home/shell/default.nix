@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [ ./bat.nix ./starship.nix ];
-  home.packages = with pkgs; [ bashInteractive eza dua ];
+  home.packages = with pkgs; [ bashInteractive eza dua cargo ];
   programs.bash = {
     enable = true;
     enableCompletion = true;
