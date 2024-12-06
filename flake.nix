@@ -37,5 +37,21 @@
         };
         modules = [ ./home ];
       };
+
+      # For AWS
+      homeConfigurations."${user}-linux" =
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+
+          extraSpecialArgs = {
+            inherit neovim;
+            user = "ubuntu";
+            homeDirectory = "/home/ubuntu";
+          };
+          modules = [ ./home {home.packages = [pkgs.lemonade]; }];
+        };
     };
 }

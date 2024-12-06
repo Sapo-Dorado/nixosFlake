@@ -3,11 +3,7 @@
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1717408969,
@@ -57,11 +53,7 @@
     },
     "flake-parts_2": {
       "inputs": {
-        "nixpkgs-lib": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs-lib": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1719994518,
@@ -97,22 +89,10 @@
     },
     "git-hooks": {
       "inputs": {
-        "flake-compat": [
-          "neovim",
-          "nixvim",
-          "flake-compat"
-        ],
+        "flake-compat": ["neovim", "nixvim", "flake-compat"],
         "gitignore": "gitignore",
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ],
-        "nixpkgs-stable": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "nixpkgs"],
+        "nixpkgs-stable": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1720524665,
@@ -130,12 +110,7 @@
     },
     "gitignore": {
       "inputs": {
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "git-hooks",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "git-hooks", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1709087332,
@@ -153,9 +128,7 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": ["nixpkgs"]
       },
       "locked": {
         "lastModified": 1730837930,
@@ -173,11 +146,7 @@
     },
     "home-manager_2": {
       "inputs": {
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1720734513,
@@ -216,11 +185,7 @@
     },
     "nix-darwin": {
       "inputs": {
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1720845312,
@@ -298,11 +263,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1730531603,
-        "narHash": "sha256-Dqg6si5CqIzm87sp57j5nTaeBbWhHFaVyG7V6L8k3lY=",
+        "lastModified": 1733212471,
+        "narHash": "sha256-M1+uCoV5igihRfcUKrr1riygbe73/dzNnzPsmaLCmpo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7ffd9ae656aec493492b44d0ddfb28e79a1ea25d",
+        "rev": "55d15ad12a74eb7d4646254e13638ad0c4128776",
         "type": "github"
       },
       "original": {
@@ -361,11 +326,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": [
-          "neovim",
-          "nixvim",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["neovim", "nixvim", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1720818892,
