@@ -1,6 +1,9 @@
 { pkgs, ... }: {
   imports = [ ./bat.nix ./starship.nix ];
-  home.packages = with pkgs; [ bashInteractive eza dua cargo ];
+  home = {
+    packages = with pkgs; [ bashInteractive eza dua cargo ];
+    sessionPath = [ "$HOME/.local/bin" ];
+  };
   programs.bash = {
     enable = true;
     enableCompletion = true;
