@@ -41,5 +41,20 @@
         };
         modules = [ ./home ];
       };
+
+      homeConfigurations."${user}-hetzner" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+
+        extraSpecialArgs = {
+          inherit neovim nixpkgs-unstable;
+          user = "root";
+          system = "x86_64-linux";
+          homeDirectory = "/root";
+        };
+        modules = [ ./home ];
+      };
     };
 }

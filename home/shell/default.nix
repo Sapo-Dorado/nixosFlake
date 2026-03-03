@@ -1,6 +1,19 @@
-{ pkgs, ... }: {
-  imports = [ ./bat.nix ./starship.nix ];
-  home.packages = with pkgs; [ bashInteractive eza dua ];
+{ pkgs, ... }:
+{
+  imports = [
+    ./bat.nix
+    ./starship.nix
+  ];
+  home = {
+    packages = with pkgs; [
+      bashInteractive
+      eza
+      dua
+      cargo
+      wget
+    ];
+    sessionPath = [ "$HOME/.local/bin" ];
+  };
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -26,6 +39,10 @@
     historySize = 20000;
     historyFileSize = 200000;
 
-    historyControl = [ "erasedups" "ignorespace" "ignoredups" ];
+    historyControl = [
+      "erasedups"
+      "ignorespace"
+      "ignoredups"
+    ];
   };
 }
