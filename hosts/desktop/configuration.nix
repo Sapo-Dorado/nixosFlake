@@ -17,6 +17,7 @@
     };
     grub = {
       enable = true;
+      default = 2;
       devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
