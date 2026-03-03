@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(nix search:*)"
+      "Bash(nix search:*)",
+      "Bash(python3:*)",
+      "Bash(nix flake:*)"
     ]
   }
 }

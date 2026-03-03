@@ -1,6 +1,7 @@
 {
   imports = [
     ./wezterm
+    ./claude.nix
     ./common.nix
     ./devenv.nix
     ./direnv.nix
