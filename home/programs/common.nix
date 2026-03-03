@@ -1,4 +1,4 @@
 { pkgs, ... }: {
 
-  home.packages = with pkgs; [ fd ripgrep fzf just ];
+  home.packages = with pkgs; [ fd ripgrep fzf just claude-code ];
 }
