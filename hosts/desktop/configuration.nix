@@ -17,7 +17,7 @@
     };
     grub = {
       enable = true;
-      default = 2;
+      default = 0;
       devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
@@ -29,7 +29,10 @@
     hostName = "nixos";
     networkmanager.enable = true;
     firewall.allowedTCPPorts = [ 22 ];
-    firewall.allowedUDPPortRanges = [{ from = 60000; to = 61000; }];
+    firewall.allowedUDPPortRanges = [{
+      from = 60000;
+      to = 61000;
+    }];
   };
 
   # Enable Mosh (mobile shell - resilient remote terminal over UDP)
