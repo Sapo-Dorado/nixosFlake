@@ -3,7 +3,12 @@
     "allow": [
       "Bash(nix search:*)",
       "Bash(python3:*)",
-      "Bash(nix flake:*)"
+      "Bash(nix flake:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:registry.npmjs.org)",
+      "WebSearch",
+      "WebFetch(domain:search.nixos.org)",
+      "Bash(nix eval:*)"
     ]
   }
 }
