@@ -29,14 +29,19 @@
     hostName = "nixos";
     networkmanager.enable = true;
     firewall.allowedTCPPorts = [ 22 ];
+    firewall.allowedUDPPortRanges = [{ from = 60000; to = 61000; }];
   };
+
+  # Enable Mosh (mobile shell - resilient remote terminal over UDP)
+  programs.mosh.enable = true;
 
   # Enable SSH
   services.openssh = {
     enable = true;
     settings = {
       PermitRootLogin = "no";
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
     };
   };
 
