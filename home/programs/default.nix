@@ -2,6 +2,7 @@
   imports = [
     ./wezterm
     ./claude.nix
+    ./skillrunner.nix
     ./common.nix
     ./devenv.nix
     ./direnv.nix

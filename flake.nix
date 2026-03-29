@@ -8,9 +8,13 @@
     };
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     neovim.url = "github:Sapo-Dorado/nixvim-config";
+    skillrunner = {
+      url = "github:Sapo-Dorado/Scheduler";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, skillrunner, ... }:
     let
       user = "nicholas";
       homeDirectory = "/home/${user}";
@@ -23,7 +27,7 @@
       nixosConfigurations = import ./hosts {
         inherit (nixpkgs) lib;
         inherit pkgs user homeDirectory system home-manager neovim
-          nixpkgs-unstable;
+          nixpkgs-unstable skillrunner;
       };
 
       # For Mac
@@ -35,7 +39,7 @@
         };
 
         extraSpecialArgs = {
-          inherit neovim user nixpkgs-unstable;
+          inherit neovim user nixpkgs-unstable skillrunner;
           system = mac-system;
           homeDirectory = "/Users/${user}";
         };
@@ -49,7 +53,7 @@
         };
 
         extraSpecialArgs = {
-          inherit neovim nixpkgs-unstable;
+          inherit neovim nixpkgs-unstable skillrunner;
           user = "root";
           system = "x86_64-linux";
           homeDirectory = "/root";

@@ -356,7 +356,28 @@
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "skillrunner": "skillrunner"
+      }
+    },
+    "skillrunner": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774817386,
+        "narHash": "sha256-M6t+qjIQO/z1hK2ExsUSehPI7iYT6+p+IFWLONb6lSs=",
+        "owner": "Sapo-Dorado",
+        "repo": "Scheduler",
+        "rev": "7ce8aa8a4ecfde03762d94185d59a9357587ed7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Sapo-Dorado",
+        "repo": "Scheduler",
+        "type": "github"
       }
     },
     "systems": {
