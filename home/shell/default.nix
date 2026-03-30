@@ -25,6 +25,7 @@
       ll = "eza -al --group-directories-first";
       lfs = "eza -alf --color=always --sort=size | grep -v /";
       lt = "eza -al --sort=modified";
+      c = "claude --dangerously-skip-permissions";
     };
 
     shellOptions = [
