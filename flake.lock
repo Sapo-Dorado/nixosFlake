@@ -367,11 +367,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774903600,
-        "narHash": "sha256-c1rvAzsHoRH8vcGU/azlJgRcIgZfEkt2O9hlAiItuso=",
+        "lastModified": 1774908920,
+        "narHash": "sha256-x+/EWtmlpsiG2eGOcPWGWyS3XGdyxQh2HQ8k0R1q8gc=",
         "owner": "Sapo-Dorado",
         "repo": "Scheduler",
-        "rev": "5e8963467f70aca8d6a2df0d3926f65e40500f9a",
+        "rev": "c6f93386f900a95de00ab15307a68035498c5e2f",
         "type": "github"
       },
       "original": {
