@@ -12,6 +12,7 @@
           useUserPackages = true;
           users.${user} = {
             imports = [
+              skillrunner.homeManagerModules.default
               ../home
               {
                 _module.args = {

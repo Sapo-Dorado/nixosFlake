@@ -43,7 +43,7 @@
           system = mac-system;
           homeDirectory = "/Users/${user}";
         };
-        modules = [ ./home ];
+        modules = [ skillrunner.homeManagerModules.default ./home ];
       };
 
       homeConfigurations."${user}-hetzner" = home-manager.lib.homeManagerConfiguration {
@@ -58,7 +58,7 @@
           system = "x86_64-linux";
           homeDirectory = "/root";
         };
-        modules = [ ./home ];
+        modules = [ skillrunner.homeManagerModules.default ./home ];
       };
     };
 }
