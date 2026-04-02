@@ -16,6 +16,14 @@
   services = {
     displayManager.sddm.enable = true;
 
+    # Auto-login on boot so SkillRunner Chrome skills have a graphical session.
+    # SDDM's Relogin defaults to false, so this only triggers on boot —
+    # manually logging out will show the normal login screen, not auto-login again.
+    displayManager.autoLogin = {
+      enable = true;
+      user = user;
+    };
+
     xserver = {
       enable = true;
       # Enable the KDE Plasma Desktop Environment.
