@@ -8,6 +8,7 @@
 
     # Apps
     brave
+    google-chrome
     wezterm
 
     # For neovim
