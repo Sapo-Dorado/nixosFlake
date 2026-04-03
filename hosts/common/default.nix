@@ -1,4 +1,4 @@
-{ pkgs, user, ... }: {
+{ pkgs, lib, user, ... }: {
   imports = [ ./docker.nix ./packages.nix ./timezone.nix ];
 
   nix = {
@@ -52,8 +52,8 @@
     };
   };
 
-  # Disable KWallet
-  security.pam.services.kwallet.enable = false;
+  # Disable KWallet PAM auto-unlock
+  security.pam.services.login.kwallet.enable = lib.mkForce false;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
