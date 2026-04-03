@@ -6,7 +6,7 @@
     extraOptions = "experimental-features = nix-command flakes";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.${user} = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
@@ -38,6 +38,9 @@
     };
     printing.enable = true;
   };
+
+  # Disable KWallet
+  security.pam.services.kwallet.enable = false;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
