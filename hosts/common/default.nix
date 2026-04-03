@@ -39,6 +39,19 @@
     printing.enable = true;
   };
 
+  # Lock screen immediately after auto-login so the session is active
+  # (for SkillRunner Chrome skills) but the screen stays locked.
+  systemd.user.services.lock-on-login = {
+    description = "Lock screen after auto-login";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+      ExecStart = "${pkgs.systemd}/bin/loginctl lock-session";
+    };
+  };
+
   # Disable KWallet
   security.pam.services.kwallet.enable = false;
 
