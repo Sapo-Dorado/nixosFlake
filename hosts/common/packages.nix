@@ -9,6 +9,7 @@
     # Apps
     brave
     google-chrome
+    obsidian
     wezterm
 
     # For neovim
