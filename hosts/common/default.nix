@@ -1,4 +1,4 @@
-{ pkgs, lib, user, ... }: {
+{ pkgs, user, ... }: {
   imports = [ ./docker.nix ./packages.nix ./timezone.nix ];
 
   nix = {
@@ -52,8 +52,12 @@
     };
   };
 
-  # Disable KWallet PAM auto-unlock
-  security.pam.services.login.kwallet.enable = lib.mkForce false;
+  # Disable KWallet so Chrome/Brave don't trigger unlock popups
+  environment.etc."xdg/kwalletrc".text = ''
+    [Wallet]
+    Enabled=false
+    First Use=false
+  '';
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
