@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
     git
     cargo
+    python3
 
     # Apps
     brave
