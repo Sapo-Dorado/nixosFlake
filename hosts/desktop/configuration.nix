@@ -54,6 +54,13 @@
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
 
+  # Mount NTFS storage drive
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-uuid/88D87117D871052A";
+    fsType = "ntfs-3g";
+    options = [ "rw" "uid=1000" "gid=1000" "nofail" ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
