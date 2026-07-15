@@ -549,11 +549,11 @@
         "nixpkgs-tools": "nixpkgs-tools"
       },
       "locked": {
-        "lastModified": 1784096068,
-        "narHash": "sha256-6G8oBEO1e3MQ6Wpz+DRCeR9j6h2RGk9YMK00EZtIR/s=",
+        "lastModified": 1784141068,
+        "narHash": "sha256-WjopKHV3WzNYuJjmv2s8K8QgHMcygF6PmgONyImp8F0=",
         "owner": "Sapo-Dorado",
         "repo": "SapoHub-2.0",
-        "rev": "97783335547cbd529c9666c1aaaff2ff0b9b4bb4",
+        "rev": "213f445977f973d61e48c684a5abf78b419d5736",
         "type": "github"
       },
       "original": {
@@ -568,11 +568,11 @@
         "sapohub": "sapohub"
       },
       "locked": {
-        "lastModified": 1784097651,
-        "narHash": "sha256-T4WVL/7gZSL3ramtH2/Uis+0Wg2lfv60hquflFVqsXE=",
+        "lastModified": 1784147630,
+        "narHash": "sha256-EP4n+tJjt3pVyN9JjnEBu6XUWoUp62DDTYY7T44JoIA=",
         "owner": "Sapo-Dorado",
         "repo": "SapoHub-Config",
-        "rev": "591a4633fb59f3d12ac115cdd418731d5397de5e",
+        "rev": "e55aafa172f39b01c82119ee979f5bb29b356733",
         "type": "github"
       },
       "original": {
