@@ -5,7 +5,10 @@
     modules = [
       ./desktop/configuration.nix
       sapohub-config.nixosModules.default
-      { services.sapohub.deploy.flakeAttr = "nixos"; }
+      {
+        services.sapohub.deploy.flakeAttr = "nixos";
+        services.sapohub.tailscale.enable = true;
+      }
       { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
       {
