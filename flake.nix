@@ -13,10 +13,10 @@
       url = "github:Sapo-Dorado/Scheduler";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sapo-hub.url = "github:Sapo-Dorado/SapoHub";
+    sapohub-config.url = "github:Sapo-Dorado/SapoHub-Config";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, skillrunner, sapo-hub, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, skillrunner, sapohub-config, ... }:
     let
       user = "nicholas";
       homeDirectory = "/home/${user}";
@@ -29,7 +29,7 @@
       nixosConfigurations = import ./hosts {
         inherit (nixpkgs) lib;
         inherit pkgs user homeDirectory system home-manager neovim
-          nixpkgs-unstable skillrunner sapo-hub;
+          nixpkgs-unstable skillrunner sapohub-config;
       };
 
       # For Mac
