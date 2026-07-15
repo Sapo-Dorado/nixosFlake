@@ -8,6 +8,7 @@
       {
         services.sapohub.deploy.flakeAttr = "nixos";
         services.sapohub.tailscale.enable = true;
+        services.sapohub.nginx.https = true;
       }
       { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
