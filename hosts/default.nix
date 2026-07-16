@@ -5,6 +5,12 @@
     modules = [
       ./desktop/configuration.nix
       sapohub-config.nixosModules.default
+      # Machine-owned, written by `sapohub-deploy --sync-prefs` into
+      # .sapohub/sapohub-prefs.nix at THIS repo's own root — this flake is
+      # deploy.repoUrl/flakePath's target (see below), not SapoHub-Config,
+      # so this is the copy that's actually kept in sync. No stub needs to
+      # exist up front; pathExists just skips it until the first sync.
+    ] ++ lib.optional (builtins.pathExists ../.sapohub/sapohub-prefs.nix) ../.sapohub/sapohub-prefs.nix ++ [
       {
         services.sapohub.deploy = {
           flakeAttr = "nixos";
@@ -27,8 +33,12 @@
           # flake directly, so it needs its own dotted-path entry to ever
           # get bumped by a plain redeploy. (Bootstrapped in two steps —
           # see SapoHub-2.0 commit 6b989d1 for the auth fix this needed
-          # before a private input could be added here safely.)
-          updateInputNames = [ "sapohub-config/sapohub" "sapohub-config/personal-modules" ];
+          # before a private input could be added here safely.) The bare
+          # "sapohub-config" entry bumps THAT repo's own commit too — left
+          # out once before, which meant a fix landed in SapoHub-Config
+          # could sit unused indefinitely since a plain redeploy never
+          # pulled a newer pin for it.
+          updateInputNames = [ "sapohub-config" "sapohub-config/sapohub" "sapohub-config/personal-modules" ];
         };
         services.sapohub.tailscale.enable = true;
         services.sapohub.nginx.https = true;
