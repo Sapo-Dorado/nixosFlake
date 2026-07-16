@@ -499,11 +499,11 @@
         "print-proxy-prep": "print-proxy-prep"
       },
       "locked": {
-        "lastModified": 1784071825,
-        "narHash": "sha256-cS94GcDoe/H1Z5MjD95wJnEI2ydcgYIOKfdIlVazH0w=",
+        "lastModified": 1784180217,
+        "narHash": "sha256-+34xf6Lwllm7h2d+QinSt5h/YJv1wVCjHd4InurGVLc=",
         "owner": "Sapo-Dorado",
         "repo": "PersonalModules",
-        "rev": "2c00c96c5f580e34d44d93afb234f7a45c4a1751",
+        "rev": "7144c6884adf0c4bf7ba6a222ca80870338a3b6d",
         "type": "github"
       },
       "original": {
