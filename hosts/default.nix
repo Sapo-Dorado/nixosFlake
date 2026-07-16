@@ -25,13 +25,10 @@
           # dotted path bumps that override directly. Same reasoning for
           # personal-modules: it's an input of sapohub-config, not of this
           # flake directly, so it needs its own dotted-path entry to ever
-          # get bumped by a plain redeploy.
-          # personal-modules temporarily dropped here — bootstrapping the
-          # currently-installed sapohub-deploy's own auth fix for private
-          # flake inputs first (see SapoHub-2.0 commit 6b989d1). Re-add
-          # once a deploy has installed that fix, or this input update
-          # will 404 unauthenticated against the private repo again.
-          updateInputNames = [ "sapohub-config/sapohub" ];
+          # get bumped by a plain redeploy. (Bootstrapped in two steps —
+          # see SapoHub-2.0 commit 6b989d1 for the auth fix this needed
+          # before a private input could be added here safely.)
+          updateInputNames = [ "sapohub-config/sapohub" "sapohub-config/personal-modules" ];
         };
         services.sapohub.tailscale.enable = true;
         services.sapohub.nginx.https = true;
