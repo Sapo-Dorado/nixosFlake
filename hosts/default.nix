@@ -22,8 +22,11 @@
           # nix's lockfile model keeps transitive pins as override
           # entries in the CONSUMING flake's own flake.lock (this one),
           # never by reaching into sapohub-config's separate repo. This
-          # dotted path bumps that override directly.
-          updateInputNames = [ "sapohub-config/sapohub" ];
+          # dotted path bumps that override directly. Same reasoning for
+          # personal-modules: it's an input of sapohub-config, not of this
+          # flake directly, so it needs its own dotted-path entry to ever
+          # get bumped by a plain redeploy.
+          updateInputNames = [ "sapohub-config/sapohub" "sapohub-config/personal-modules" ];
         };
         services.sapohub.tailscale.enable = true;
         services.sapohub.nginx.https = true;
