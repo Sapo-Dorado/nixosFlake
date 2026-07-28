@@ -6,14 +6,5 @@
     git
     cargo
     python3
-
-    # Apps
-    brave
-    google-chrome
-    obsidian
-    wezterm
-
-    # For neovim
-    xclip
   ];
 }

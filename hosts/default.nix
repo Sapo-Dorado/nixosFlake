@@ -1,4 +1,4 @@
-{ lib, system, home-manager, user, homeDirectory, neovim, nixpkgs-unstable, skillrunner, sapohub-config, ...
+{ lib, system, home-manager, user, homeDirectory, neovim, nixpkgs-unstable, skillrunner, sapohub-config, disko, ...
 }: {
   nixos = lib.nixosSystem {
     inherit system;
@@ -62,6 +62,42 @@
               {
                 _module.args = {
                   inherit user system homeDirectory neovim nixpkgs-unstable skillrunner;
+                };
+              }
+            ];
+          };
+        };
+      }
+    ];
+  };
+
+  # General-purpose profile for remote/headless boxes provisioned via
+  # nixos-anywhere — see hosts/remote/configuration.nix and
+  # scripts/remote-deploy.sh. Root-only (no "nicholas" account), so
+  # user/homeDirectory are overridden to root/"/root" for this evaluation
+  # only — home-manager below applies the same ../home (shell, git,
+  # neovim, direnv, skillrunner, ...) as the desktop host, just to root's
+  # own home instead.
+  remote = lib.nixosSystem {
+    inherit system;
+    modules = [
+      disko.nixosModules.disko
+      ./remote/configuration.nix
+      { _module.args = { user = "root"; homeDirectory = "/root"; }; }
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.root = {
+            imports = [
+              skillrunner.homeManagerModules.default
+              ../home
+              {
+                _module.args = {
+                  user = "root";
+                  homeDirectory = "/root";
+                  inherit system neovim nixpkgs-unstable skillrunner;
                 };
               }
             ];

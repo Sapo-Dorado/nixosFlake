@@ -1,1 +1,8 @@
 result
+
+# Generated per-deploy by scripts/remote-deploy.sh — real hardware/disk
+# facts for whatever box is currently at hosts/remote's target IP, not
+# something to keep in git history. See hosts/remote/*.example.nix for
+# the committed fallbacks.
+hosts/remote/hardware-configuration.nix
+hosts/remote/disk-device.nix

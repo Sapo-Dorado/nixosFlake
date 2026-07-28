@@ -14,9 +14,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sapohub-config.url = "github:Sapo-Dorado/SapoHub-Config";
+    # Disk partitioning for the remote-machine nixos-anywhere path
+    # (hosts/remote, scripts/remote-deploy.sh).
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, skillrunner, sapohub-config, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, neovim, skillrunner, sapohub-config, disko, ... }:
     let
       user = "nicholas";
       homeDirectory = "/home/${user}";
@@ -29,7 +35,7 @@
       nixosConfigurations = import ./hosts {
         inherit (nixpkgs) lib;
         inherit pkgs user homeDirectory system home-manager neovim
-          nixpkgs-unstable skillrunner sapohub-config;
+          nixpkgs-unstable skillrunner sapohub-config disko;
       };
 
       # For Mac
