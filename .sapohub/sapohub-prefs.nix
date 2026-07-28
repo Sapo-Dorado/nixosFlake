@@ -5,7 +5,7 @@
   services.sapohub.prefs = lib.mapAttrs (_: lib.mkDefault) (builtins.fromJSON ''
 {
   "dashboard_button.my_plate": "preview",
-  "dashboard_order": "my_plate,reminders,projects,storage,magic_proxies,youtube_download",
+  "dashboard_order": "my_plate,reminders,projects,storage,recipes,magic_proxies,youtube_download",
   "statusline_order": "my_plate.due"
 }
 '');
