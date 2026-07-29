@@ -14,6 +14,18 @@ let
     if builtins.pathExists ./hardware-configuration.nix
     then ./hardware-configuration.nix
     else ./hardware-configuration.example.nix;
+
+  bootModeFile =
+    if builtins.pathExists ./boot-mode.nix
+    then ./boot-mode.nix
+    else ./boot-mode.example.nix;
+  inherit (import bootModeFile) remoteBootMode;
+
+  diskDeviceFile =
+    if builtins.pathExists ./disk-device.nix
+    then ./disk-device.nix
+    else ./disk-device.example.nix;
+  inherit (import diskDeviceFile) remoteDiskDevice;
 in
 {
   imports = [
@@ -24,14 +36,31 @@ in
     hardwareConfigPath
   ];
 
-  # BIOS/legacy GPT — see disk-config.nix's header comment for why this is
-  # the boot scheme instead of UEFI/systemd-boot.
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = false;
-    default = 0;
-    configurationLimit = 5;
-  };
+  # GRUB, UEFI or legacy/BIOS depending on boot-mode.nix — see
+  # disk-config.nix's header comment. efiInstallAsRemovable writes the
+  # fallback /EFI/BOOT/BOOTX64.EFI path instead of registering an NVRAM
+  # boot entry, since VPS/cloud UEFI firmware support for NVRAM writes
+  # from the guest is inconsistent.
+  boot.loader.efi.efiSysMountPoint = lib.mkIf (remoteBootMode == "uefi") "/boot/efi";
+
+  boot.loader.grub =
+    {
+      enable = true;
+      default = 0;
+      configurationLimit = 5;
+    }
+    // (
+      if remoteBootMode == "uefi"
+      then {
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+        device = "nodev";
+      }
+      else {
+        efiSupport = false;
+        device = remoteDiskDevice;
+      }
+    );
 
   networking = {
     hostName = "remote";

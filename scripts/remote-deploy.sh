@@ -6,8 +6,9 @@ set -euo pipefail
 # — general dev setup: docker, common packages, mosh/ssh, home-manager for
 # root). Modeled on SapoHub 2.0's own scripts/bootstrap.sh, but simpler:
 # one reusable "remote" host (not one nixosConfigurations attr per
-# hostname) and the generated hardware-configuration.nix/disk-device.nix
-# are deliberately NEVER committed — see the "Hardware config" note below.
+# hostname) and the generated hardware-configuration.nix/disk-device.nix/
+# boot-mode.nix are deliberately NEVER committed — see the "Hardware
+# config" note below.
 #
 # The target machine needs to already be reachable over SSH as root and
 # booted into SOME NixOS-based environment (the official installer ISO, or
@@ -22,6 +23,10 @@ set -euo pipefail
 #   --disk <device>       Target disk device to partition, e.g. /dev/sda,
 #                          /dev/vda, /dev/nvme0n1 (default: /dev/sda —
 #                          check with `ssh root@<ip> lsblk` if unsure).
+#   --boot-mode <mode>     "uefi" or "legacy" (default: uefi). Some
+#                          hypervisors only expose BIOS/legacy boot to the
+#                          guest — if the box fails to boot after a UEFI
+#                          install (or vice versa), retry with the other.
 #   --ssh-user <user>      SSH user on the target (default: root).
 #
 # Hardware config: nixos-anywhere generates this machine's
@@ -44,10 +49,11 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TARGET_IP=""
 DISK_DEVICE="/dev/sda"
+BOOT_MODE="uefi"
 SSH_USER="root"
 
 usage() {
-  echo "usage: $0 <ip> [--disk <device>] [--ssh-user <user>]" >&2
+  echo "usage: $0 <ip> [--disk <device>] [--boot-mode uefi|legacy] [--ssh-user <user>]" >&2
   exit 1
 }
 
@@ -57,24 +63,32 @@ TARGET_IP="$1"; shift
 while [ $# -gt 0 ]; do
   case "$1" in
     --disk) DISK_DEVICE="$2"; shift 2 ;;
+    --boot-mode) BOOT_MODE="$2"; shift 2 ;;
     --ssh-user) SSH_USER="$2"; shift 2 ;;
     *) echo "unknown option: $1" >&2; usage ;;
   esac
 done
 
+case "$BOOT_MODE" in
+  uefi|legacy) ;;
+  *) echo "invalid --boot-mode: ${BOOT_MODE} (must be uefi or legacy)" >&2; exit 1 ;;
+esac
+
 echo "== remote-deploy =="
 echo "target:       ${SSH_USER}@${TARGET_IP}"
 echo "flake attr:   remote"
 echo "disk device:  ${DISK_DEVICE}"
+echo "boot mode:    ${BOOT_MODE}"
 echo ""
 
 HW_DIR="$REPO_ROOT/hosts/remote"
 GENERATED_HW_CONFIG="$HW_DIR/hardware-configuration.nix"
 GENERATED_DISK_DEVICE="$HW_DIR/disk-device.nix"
+GENERATED_BOOT_MODE="$HW_DIR/boot-mode.nix"
 
 cleanup_git_index() {
   # Unstage regardless of how we exit — see "Hardware config" above.
-  git -C "$REPO_ROOT" reset -- "$GENERATED_DISK_DEVICE" "$GENERATED_HW_CONFIG" >/dev/null 2>&1 || true
+  git -C "$REPO_ROOT" reset -- "$GENERATED_DISK_DEVICE" "$GENERATED_HW_CONFIG" "$GENERATED_BOOT_MODE" >/dev/null 2>&1 || true
 }
 trap cleanup_git_index EXIT
 
@@ -84,10 +98,18 @@ cat > "$GENERATED_DISK_DEVICE" <<NIXEOF
 }
 NIXEOF
 echo "wrote $(basename "$GENERATED_DISK_DEVICE") (${DISK_DEVICE})"
-# Make it visible to the flake evaluation without staging real content for
-# a future commit — same trick nixos-anywhere itself uses internally for
-# the hardware-config file below.
-git -C "$REPO_ROOT" add --intent-to-add "$GENERATED_DISK_DEVICE"
+
+cat > "$GENERATED_BOOT_MODE" <<NIXEOF
+{
+  remoteBootMode = "${BOOT_MODE}";
+}
+NIXEOF
+echo "wrote $(basename "$GENERATED_BOOT_MODE") (${BOOT_MODE})"
+
+# Make them visible to the flake evaluation without staging real content
+# for a future commit — same trick nixos-anywhere itself uses internally
+# for the hardware-config file below.
+git -C "$REPO_ROOT" add --intent-to-add -f "$GENERATED_DISK_DEVICE" "$GENERATED_BOOT_MODE"
 
 echo ""
 echo "starting nixos-anywhere (this partitions ${DISK_DEVICE} on ${TARGET_IP} — DESTRUCTIVE, double-check the IP and disk device now)..."
