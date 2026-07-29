@@ -48,6 +48,16 @@
         # self-identity settings like this one shouldn't live in a
         # module meant to be imported by other configs.
         services.sapohub.assistant.browser.enable = true;
+        # Testing local-model serving (fetch + llama-swap) without touching
+        # which provider the assistant itself uses — assistant.provider is
+        # deliberately left at its "anthropic" default, so Claude stays the
+        # active assistant regardless of whether this pipeline works. See
+        # SapoHub-2.0's assistant.localModels option docs.
+        services.sapohub.assistant.localModels.models.gpt-oss-20b = {
+          weightsPath = "/mnt/storage/models/gpt-oss-20b-MXFP4.gguf";
+          source = "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-MXFP4.gguf";
+          contextSize = 16384;
+        };
       }
       { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
