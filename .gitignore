@@ -6,3 +6,4 @@ result
 # the committed fallbacks.
 hosts/remote/hardware-configuration.nix
 hosts/remote/disk-device.nix
+hosts/remote/boot-mode.nix
