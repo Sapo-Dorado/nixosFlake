@@ -58,6 +58,16 @@
           source = "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-MXFP4.gguf";
           contextSize = 16384;
         };
+        # Borderline candidate: 80B total / 3B active (lower active-param
+        # count than gpt-oss-20b, so similar or better generation speed is
+        # plausible) but a newer hybrid linear-attention architecture and a
+        # much bigger RAM footprint (~48GB) — the two real unknowns this
+        # entry exists to test empirically rather than trust projected.
+        services.sapohub.assistant.localModels.models.qwen3-coder-next = {
+          weightsPath = "/mnt/storage/models/Qwen3-Coder-Next-Q4_K_M.gguf";
+          source = "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/resolve/main/Qwen3-Coder-Next-Q4_K_M.gguf";
+          contextSize = 16384;
+        };
       }
       { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
