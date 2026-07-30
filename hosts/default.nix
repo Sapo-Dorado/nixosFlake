@@ -48,13 +48,7 @@
         # self-identity settings like this one shouldn't live in a
         # module meant to be imported by other configs.
         services.sapohub.assistant.browser.enable = true;
-        # Three candidates tested independently (fetch + llama-swap, real
-        # tool-use round trips via raw HTTP) while assistant.provider stayed
-        # "anthropic" — measured qwen3-coder-30b-a3b as the clear winner on
-        # both generation (~14.5 tok/s) and prompt-processing (~43.5 tok/s)
-        # speed, so it's now the live default below.
-        services.sapohub.assistant.provider = "local";
-        services.sapohub.assistant.localModels.defaultModel = "qwen3-coder-30b-a3b";
+        services.sapohub.assistant.provider = "anthropic";
         services.sapohub.assistant.localModels.models.gpt-oss-20b = {
           weightsPath = "/mnt/storage/models/gpt-oss-20b-MXFP4.gguf";
           source = "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-MXFP4.gguf";
