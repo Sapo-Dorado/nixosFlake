@@ -68,6 +68,15 @@
           source = "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/resolve/main/Qwen3-Coder-Next-Q4_K_M.gguf";
           contextSize = 16384;
         };
+        # 30.5B total / 3.3B active — similar active-param count to
+        # gpt-oss-20b (so similar speed expected), standard attention
+        # architecture (not the hybrid design that hurt qwen3-coder-next's
+        # real-world speed), coding-specialized. 18.6GB, comfortable fit.
+        services.sapohub.assistant.localModels.models.qwen3-coder-30b-a3b = {
+          weightsPath = "/mnt/storage/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
+          source = "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
+          contextSize = 16384;
+        };
       }
       { _module.args = { inherit user homeDirectory; }; }
       home-manager.nixosModules.home-manager
