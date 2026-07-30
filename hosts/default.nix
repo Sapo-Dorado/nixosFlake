@@ -52,7 +52,12 @@
         services.sapohub.assistant.localModels.models.gpt-oss-20b = {
           weightsPath = "/mnt/storage/models/gpt-oss-20b-MXFP4.gguf";
           source = "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-MXFP4.gguf";
-          contextSize = 16384;
+          # Was 16384 — too small for Claude Code's own system prompt + tool
+          # definitions (~36k tokens before any conversation history), which
+          # made every session fail immediately. Native context is 128k and
+          # weights are only ~13GB, so there's ample RAM headroom on this
+          # 64GB box for a much larger KV cache.
+          contextSize = 65536;
         };
         # Borderline candidate: 80B total / 3B active (lower active-param
         # count than gpt-oss-20b, so similar or better generation speed is
@@ -62,7 +67,13 @@
         services.sapohub.assistant.localModels.models.qwen3-coder-next = {
           weightsPath = "/mnt/storage/models/Qwen3-Coder-Next-Q4_K_M.gguf";
           source = "https://huggingface.co/unsloth/Qwen3-Coder-Next-GGUF/resolve/main/Qwen3-Coder-Next-Q4_K_M.gguf";
-          contextSize = 16384;
+          # Was 16384 (same Claude-Code-overhead problem as the other
+          # entries here). Native context is 256k, but weights alone are
+          # already ~48GB on this box's 64GB — kept more conservative than
+          # the other two models until KV cache usage at this size is
+          # confirmed not to OOM (watch llama-server's own KV buffer size
+          # log line on first load).
+          contextSize = 32768;
         };
         # 30.5B total / 3.3B active — similar active-param count to
         # gpt-oss-20b (so similar speed expected), standard attention
@@ -71,7 +82,10 @@
         services.sapohub.assistant.localModels.models.qwen3-coder-30b-a3b = {
           weightsPath = "/mnt/storage/models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
           source = "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/resolve/main/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
-          contextSize = 16384;
+          # Was 16384 — same fix as gpt-oss-20b above. Native context is
+          # 256k and weights are ~18.6GB, comfortable headroom for a larger
+          # KV cache on this 64GB box.
+          contextSize = 65536;
         };
       }
       { _module.args = { inherit user homeDirectory; }; }
