@@ -2,6 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+{ config, ... }:
+
 {
   imports = [
     ../common
@@ -60,6 +62,23 @@
     device = "/dev/disk/by-uuid/88D87117D871052A";
     fsType = "ntfs-3g";
     options = [ "rw" "uid=1000" "gid=1000" "nofail" ];
+  };
+
+  # Two NVIDIA RTX 2070 Supers (TU104) sit here unused under the nouveau
+  # driver (no CUDA) by default. videoDrivers = [ "nvidia" ] is required
+  # even on this headless (no display manager) box: nixpkgs' nvidia
+  # hardware module gates most of hardware.nvidia.* — including loading
+  # the proprietary kernel module and blacklisting nouveau — behind that
+  # list, regardless of whether Xorg itself ever runs. Enables
+  # services.sapohub.assistant.localModels.cudaSupport (see below) to
+  # actually offload local model inference onto these cards via
+  # --n-gpu-layers.
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # This value determines the NixOS release from which the default

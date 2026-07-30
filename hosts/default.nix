@@ -49,12 +49,22 @@
         # module meant to be imported by other configs.
         services.sapohub.assistant.browser.enable = true;
         services.sapohub.assistant.provider = "anthropic";
+        # Two RTX 2070 Supers (8GB VRAM each) live on this box — see
+        # hosts/desktop/configuration.nix for the driver side (videoDrivers
+        # = [ "nvidia" ], hardware.nvidia.*). This just controls how
+        # toolsPkgs.llama-cpp itself gets built; --n-gpu-layers below is
+        # what actually asks each model to offload onto them.
+        services.sapohub.assistant.localModels.cudaSupport = true;
         services.sapohub.assistant.localModels.models.gpt-oss-20b = {
           weightsPath = "/mnt/storage/models/gpt-oss-20b-MXFP4.gguf";
           source = "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/main/gpt-oss-20b-MXFP4.gguf";
           # contextSize left at the module default (65536) — native context
           # is 128k and weights are only ~13GB, ample RAM headroom on this
           # 64GB box for the default-sized KV cache.
+          # 999 asks to offload every layer; llama.cpp clamps to however
+          # many actually fit across the 16GB combined VRAM and leaves the
+          # rest on CPU, so this doesn't need to be tuned precisely.
+          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
         # Borderline candidate: 80B total / 3B active (lower active-param
         # count than gpt-oss-20b, so similar or better generation speed is
@@ -70,6 +80,7 @@
           # confirmed not to OOM (watch llama-server's own KV buffer size
           # log line on first load).
           contextSize = 32768;
+          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
         # 30.5B total / 3.3B active — similar active-param count to
         # gpt-oss-20b (so similar speed expected), standard attention
@@ -81,6 +92,7 @@
           # contextSize left at the module default (65536) — native context
           # is 256k and weights are ~18.6GB, comfortable headroom on this
           # 64GB box for the default-sized KV cache.
+          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
       }
       { _module.args = { inherit user homeDirectory; }; }
