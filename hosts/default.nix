@@ -52,8 +52,16 @@
         # Two RTX 2070 Supers (8GB VRAM each) live on this box — see
         # hosts/desktop/configuration.nix for the driver side (videoDrivers
         # = [ "nvidia" ], hardware.nvidia.*). This just controls how
-        # toolsPkgs.llama-cpp itself gets built; --n-gpu-layers below is
-        # what actually asks each model to offload onto them.
+        # toolsPkgs.llama-cpp itself gets built. No --n-gpu-layers needed in
+        # any model's extraArgs: this llama.cpp build already defaults to
+        # --n-gpu-layers auto with --fit on, which inspects free VRAM across
+        # both cards and offloads what fits on its own. An explicit large
+        # override (999) actually made this WORSE — it disables that
+        # fit-to-memory logic entirely and tries to force everything onto a
+        # single device, which OOMs instead of gracefully falling back to
+        # partial offload (confirmed: qwen3-coder-30b-a3b/qwen3-coder-next
+        # both crashed on load with `999`, then loaded fine across both GPUs
+        # with the flag removed).
         services.sapohub.assistant.localModels.cudaSupport = true;
         services.sapohub.assistant.localModels.models.gpt-oss-20b = {
           weightsPath = "/mnt/storage/models/gpt-oss-20b-MXFP4.gguf";
@@ -61,10 +69,6 @@
           # contextSize left at the module default (65536) — native context
           # is 128k and weights are only ~13GB, ample RAM headroom on this
           # 64GB box for the default-sized KV cache.
-          # 999 asks to offload every layer; llama.cpp clamps to however
-          # many actually fit across the 16GB combined VRAM and leaves the
-          # rest on CPU, so this doesn't need to be tuned precisely.
-          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
         # Borderline candidate: 80B total / 3B active (lower active-param
         # count than gpt-oss-20b, so similar or better generation speed is
@@ -80,7 +84,6 @@
           # confirmed not to OOM (watch llama-server's own KV buffer size
           # log line on first load).
           contextSize = 32768;
-          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
         # 30.5B total / 3.3B active — similar active-param count to
         # gpt-oss-20b (so similar speed expected), standard attention
@@ -92,7 +95,6 @@
           # contextSize left at the module default (65536) — native context
           # is 256k and weights are ~18.6GB, comfortable headroom on this
           # 64GB box for the default-sized KV cache.
-          extraArgs = [ "--jinja" "--n-gpu-layers" "999" ];
         };
       }
       { _module.args = { inherit user homeDirectory; }; }
