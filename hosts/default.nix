@@ -48,8 +48,7 @@
         # self-identity settings like this one shouldn't live in a
         # module meant to be imported by other configs.
         services.sapohub.assistant.browser.enable = true;
-        services.sapohub.assistant.provider = "local";
-        services.sapohub.assistant.localModels.defaultModel = "qwen3-coder-30b-a3b";
+        services.sapohub.assistant.provider = "anthropic";
         # Two RTX 2070 Supers (8GB VRAM each) live on this box — see
         # hosts/desktop/configuration.nix for the driver side (videoDrivers
         # = [ "nvidia" ], hardware.nvidia.*). This just controls how
