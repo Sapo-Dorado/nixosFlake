@@ -519,11 +519,11 @@
         "print-proxy-prep": "print-proxy-prep"
       },
       "locked": {
-        "lastModified": 1784180217,
-        "narHash": "sha256-+34xf6Lwllm7h2d+QinSt5h/YJv1wVCjHd4InurGVLc=",
+        "lastModified": 1787977089,
+        "narHash": "sha256-etwcmzrhuhbbhFa8fb5j9Vql8ZdPBTmz7Dr2oe48ssQ=",
         "owner": "Sapo-Dorado",
         "repo": "PersonalModules",
-        "rev": "7144c6884adf0c4bf7ba6a222ca80870338a3b6d",
+        "rev": "0631e5dee773f87824c6296acb6b3bc61519de00",
         "type": "github"
       },
       "original": {
@@ -589,11 +589,11 @@
         "sapohub": "sapohub"
       },
       "locked": {
-        "lastModified": 1784439794,
-        "narHash": "sha256-apxx2Kfs0s0cT7y0pMwRgF2z6JaLGuy0KeljnP0hbck=",
+        "lastModified": 1787977273,
+        "narHash": "sha256-nxlM6Bc2NfmzUWds4yegwR7Nwfbcsmmj7t9mT8AneT4=",
         "owner": "Sapo-Dorado",
         "repo": "SapoHub-Config",
-        "rev": "801d31f44ebec94bcf8f5347f020acf85f450d8c",
+        "rev": "df07217a70d0cb1d3cacb50587902b45434bee2d",
         "type": "github"
       },
       "original": {
