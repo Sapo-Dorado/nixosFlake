@@ -5,6 +5,7 @@
   services.sapohub.prefs = lib.mapAttrs (_: lib.mkDefault) (builtins.fromJSON ''
 {
   "assistant.remote_control": true,
+  "dashboard_button.amex_rewards": "summary",
   "dashboard_button.my_plate": "preview",
   "dashboard_order": "my_plate,reminders,projects,storage,recipes,magic_proxies,youtube_download",
   "statusline_order": "my_plate.due"
